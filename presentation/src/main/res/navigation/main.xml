@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@+id/setNumberPlayerFragment">
+
+    <fragment
+        android:id="@+id/setNumberPlayerFragment"
+        android:name="com.ducnguyen2102.werewolfmoderator.ui.setnumberplayer.SetNumberPlayerFragment"
+        android:label="SetNumberPlayerFragment"
+        tools:layout="@layout/fragment_set_number_player">
+        <action
+            android:id="@+id/action_mainFragment_to_pickCharacterFragment"
+            app:destination="@id/pickCharacterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pickCharacterFragment"
+        android:name="com.ducnguyen2102.werewolfmoderator.ui.pickcharacter.PickCharacterFragment"
+        android:label="PickCharacterFragment"
+        tools:layout="@layout/fragment_pick_character" />
+</navigation>
