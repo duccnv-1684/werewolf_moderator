@@ -68,11 +68,11 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:textStyle="bold"
-                android:textSize="32sp"
                 android:gravity="center"
-                android:maxLength="2" />
+                android:inputType="number"
+                android:maxLength="2"
+                android:textSize="32sp"
+                android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -83,4 +83,6 @@
             name="viewModel"
             type="com.ducnguyen2102.werewolfmoderator.ui.setnumberplayer.SetNumberPlayerViewModel" />
     </data>
+
+
 </layout>

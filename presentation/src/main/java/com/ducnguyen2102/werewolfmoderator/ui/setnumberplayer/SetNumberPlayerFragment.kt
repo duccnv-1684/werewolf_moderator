@@ -25,13 +25,19 @@ class SetNumberPlayerFragment : BaseFragment<FragmentSetNumberPlayerBinding, Set
 
     private var bindingComponent = FragmentDataBindingComponent(this)
 
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
         viewDataBinding.run {
         }
         confirm.setOnClickListener {
-            findNavController().navigate(R.id.action_mainFragment_to_pickCharacterFragment)
+            val inputText = numberPlayer.editText?.text.toString()
+            val numberPlayers = inputText.toIntOrNull()
+            numberPlayers?.let {
+                sharedViewModel.numberPlayers.value = it
+                findNavController().navigate(R.id.action_mainFragment_to_pickCharacterFragment)
+            }
         }
         subscribeUI()
     }

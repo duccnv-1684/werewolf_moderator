@@ -3,20 +3,22 @@ package com.ducnguyen2102.werewolfmoderator.model
 data class Character(val type: CharacterType) {
 
     enum class CharacterType(val type: Int) {
-        GOOF(1),
+        IDIOT(1),
         CUPID(2),
         TWO_SISTERS(3),
         THREE_BROTHERS(4),
-        BASTARD(5),
-        PROTECTOR(6),
-        WEREWOLF(7),
-        WEREWOLF_CURSE(8),
-        WEREWOLF_BOSS(9),
-        WITCH(10),
-        SEER(11),
-        FOX(12),
-        KNIGHT(13),
-        HUNTER(14),
-        FLUTIST(15)
+        WILD_CHILD(5),
+        ANCIENT(6),
+        SAVIOR(7),
+        WOLF(8),
+        VILE_FATHER_OF_WOLF(9),
+        BIG_BAD_WOLF(10),
+        WITCH(11),
+        SEER(12),
+        FOX(13),
+        KNIGHT(14),
+        HUNTER(15),
+        FLUTIST(16),
+        VILLAGER(17)
     }
 }
