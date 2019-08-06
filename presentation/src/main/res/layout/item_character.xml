@@ -3,22 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="character"
-            type="com.ducnguyen2102.werewolfmoderator.model.Character" />
+            type="com.ducnguyen2102.werewolfmoderator.ui.pickcharacter.ItemCharacterViewModel" />
+
+        <import type="android.view.View" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/itemView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
 
         <ImageView
             android:id="@+id/imageCharacter"
+            drawableSrc="@{character.imageId}"
             android:layout_width="96dp"
             android:layout_height="96dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/logo"
+            android:scaleType="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -26,11 +30,12 @@
 
         <TextView
             android:id="@+id/textCharacter"
+            textById="@{character.nameId}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="Werewolf"
-            android:textColor="@android:color/black"
+            android:textColor="@{character.isSelected?@android:color/white:@android:color/darker_gray}"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/imageCharacter"
             app:layout_constraintStart_toStartOf="@+id/imageCharacter"
             app:layout_constraintTop_toBottomOf="@+id/imageCharacter" />
@@ -39,12 +44,27 @@
             android:id="@+id/viewOverlay"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:alpha="0.8"
+            android:alpha="0.5"
             android:background="@drawable/background_character_overlay"
+            android:visibility="@{character.isSelected?View.GONE:View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="@id/imageCharacter"
             app:layout_constraintEnd_toEndOf="@id/imageCharacter"
             app:layout_constraintStart_toStartOf="@id/imageCharacter"
             app:layout_constraintTop_toTopOf="@id/imageCharacter" />
+
+        <ImageView
+            android:id="@+id/textCharacterNumber"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="4dp"
+            android:background="@drawable/background_character_number"
+            android:scaleType="center"
+            android:src="@drawable/ic_check"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:visibility="@{character.isSelected?View.VISIBLE:View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@+id/imageCharacter"
+            app:layout_constraintEnd_toEndOf="@+id/imageCharacter" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

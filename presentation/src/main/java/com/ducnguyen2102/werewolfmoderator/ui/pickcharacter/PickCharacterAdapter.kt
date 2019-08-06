@@ -9,19 +9,18 @@ import androidx.recyclerview.widget.DiffUtil
 import com.ducnguyen2102.werewolfmoderator.R
 import com.ducnguyen2102.werewolfmoderator.base.BaseRecyclerAdapter
 import com.ducnguyen2102.werewolfmoderator.databinding.ItemCharacterBinding
-import com.ducnguyen2102.werewolfmoderator.model.Character
 
 class PickCharacterAdapter(
         private val dataBindingComponent: DataBindingComponent,
-        private val callback: ((Character) -> Unit?)
-) : BaseRecyclerAdapter<Character>(
-        callBack = object : DiffUtil.ItemCallback<Character>() {
-            override fun areItemsTheSame(oldItem: Character, newItem: Character): Boolean {
-                return oldItem.type == newItem.type
+        private val callback: ((ItemCharacterViewModel) -> Unit?)
+) : BaseRecyclerAdapter<ItemCharacterViewModel>(
+        callBack = object : DiffUtil.ItemCallback<ItemCharacterViewModel>() {
+            override fun areItemsTheSame(oldItem: ItemCharacterViewModel, newItem: ItemCharacterViewModel): Boolean {
+                return oldItem.type.get() == newItem.type.get()
             }
 
-            override fun areContentsTheSame(oldItem: Character, newItem: Character): Boolean {
-                return oldItem.type == newItem.type
+            override fun areContentsTheSame(oldItem: ItemCharacterViewModel, newItem: ItemCharacterViewModel): Boolean {
+                return oldItem.type.get() == newItem.type.get() && oldItem.isSelected.get() == newItem.isSelected.get()
             }
         }
 ) {
@@ -31,14 +30,14 @@ class PickCharacterAdapter(
                 false, dataBindingComponent
         ).apply {
             root.setOnClickListener {
-                this.character?.let { item ->
-                    callback.invoke(item)
+                this.character?.let { character ->
+                    callback.invoke(character)
                 }
             }
         }
     }
 
-    override fun bind(binding: ViewDataBinding, item: Character) {
+    override fun bind(binding: ViewDataBinding, item: ItemCharacterViewModel) {
         if (binding is ItemCharacterBinding) binding.character = item
     }
 

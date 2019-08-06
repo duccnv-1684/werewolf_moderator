@@ -6,5 +6,24 @@
     <string name="search_btn_title">Search</string>ật
     <string name="title_set_number_player">Hãy chọn số người chơi</string>
     <string name="title_pick_character">Hãy lựa chọn các nhân vật</string>
-    <string name="title_confirm">Xác nhận</string>
+    <string name="title_continue">Tiếp tục</string>
+    <string name="character_idiot">Thằng ngốc</string>
+    <string name="character_cupid">Cupid</string>
+    <string name="character_two_sisters">Hai chị em</string>
+    <string name="character_three_brothers">Ba anh em</string>
+    <string name="character_wild_child">Con hoang</string>
+    <string name="character_ancient">Già làng</string>
+    <string name="character_savior">Bảo vệ</string>
+    <string name="character_wolf">Sói</string>
+    <string name="character_vile_father_of_wolf">Sói nguyền</string>
+    <string name="character_big_dad_wolf">Sói trùm</string>
+    <string name="character_witch">Phù thủy</string>
+    <string name="character_seer">Tiên tri</string>
+    <string name="character_fox">Cáo</string>
+    <string name="character_knight">Hiệp sĩ</string>
+    <string name="character_hunter">Thợ săn</string>
+    <string name="character_flutist">Thổi sáo</string>
+    <string name="character_villager">Dân làng</string>
+    <string name="title_back">Back</string>
+    <string name="number_player_error">Số lượng người chơi phải trong khoảng từ 6 tới 20!</string>
 </resources>

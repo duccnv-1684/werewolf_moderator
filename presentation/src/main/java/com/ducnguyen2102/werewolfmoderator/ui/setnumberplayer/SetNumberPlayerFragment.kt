@@ -1,6 +1,8 @@
 package com.ducnguyen2102.werewolfmoderator.ui.setnumberplayer
 
 import android.os.Bundle
+import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.ducnguyen2102.werewolfmoderator.BR
 import com.ducnguyen2102.werewolfmoderator.R
@@ -32,18 +34,27 @@ class SetNumberPlayerFragment : BaseFragment<FragmentSetNumberPlayerBinding, Set
 
         viewDataBinding.run {
         }
-        confirm.setOnClickListener {
+        next.setOnClickListener {
             val inputText = numberPlayer.editText?.text.toString()
             val numberPlayers = inputText.toIntOrNull()
             numberPlayers?.let {
-                sharedViewModel.numberPlayers.value = it
-                hideKeyBoard()
-                findNavController().navigate(R.id.action_mainFragment_to_pickCharacterFragment)
+                if (it in 5..30) {
+                    sharedViewModel.numberPlayers.value = it
+                    hideKeyBoard()
+                    findNavController().navigate(R.id.action_mainFragment_to_pickCharacterFragment)
+                } else {
+                    Toast.makeText(context, R.string.number_player_error, Toast.LENGTH_LONG).show()
+                }
             }
         }
         subscribeUI()
     }
 
     private fun subscribeUI() {
+        sharedViewModel.run {
+            numberPlayers.observe(this@SetNumberPlayerFragment, Observer {
+                viewDataBinding.numberPlayer.editText?.setText(it.toString())
+            })
+        }
     }
 }
