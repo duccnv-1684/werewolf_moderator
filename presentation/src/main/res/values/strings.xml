@@ -3,7 +3,8 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="action_settings">Settings</string>
     <string name="search_hint">Search Repo</string>
-    <string name="search_btn_title">Search</string>
+    <string name="search_btn_title">Search</string>ật
     <string name="title_set_number_player">Hãy chọn số người chơi</string>
+    <string name="title_pick_character">Hãy lựa chọn các nhân vật</string>
     <string name="title_confirm">Xác nhận</string>
 </resources>

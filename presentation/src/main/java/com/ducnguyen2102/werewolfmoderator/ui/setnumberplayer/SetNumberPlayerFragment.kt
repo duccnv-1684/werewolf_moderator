@@ -7,6 +7,7 @@ import com.ducnguyen2102.werewolfmoderator.R
 import com.ducnguyen2102.werewolfmoderator.base.BaseFragment
 import com.ducnguyen2102.werewolfmoderator.binding.FragmentDataBindingComponent
 import com.ducnguyen2102.werewolfmoderator.databinding.FragmentSetNumberPlayerBinding
+import com.ducnguyen2102.werewolfmoderator.extension.hideKeyBoard
 import com.ducnguyen2102.werewolfmoderator.ui.MainSharedViewModel
 import kotlinx.android.synthetic.main.fragment_set_number_player.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -36,6 +37,7 @@ class SetNumberPlayerFragment : BaseFragment<FragmentSetNumberPlayerBinding, Set
             val numberPlayers = inputText.toIntOrNull()
             numberPlayers?.let {
                 sharedViewModel.numberPlayers.value = it
+                hideKeyBoard()
                 findNavController().navigate(R.id.action_mainFragment_to_pickCharacterFragment)
             }
         }

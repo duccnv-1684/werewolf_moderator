@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="character"
+            type="com.ducnguyen2102.werewolfmoderator.model.Character" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:id="@+id/imageCharacter"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/logo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textCharacter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Werewolf"
+            android:textColor="@android:color/black"
+            app:layout_constraintEnd_toEndOf="@+id/imageCharacter"
+            app:layout_constraintStart_toStartOf="@+id/imageCharacter"
+            app:layout_constraintTop_toBottomOf="@+id/imageCharacter" />
+
+        <View
+            android:id="@+id/viewOverlay"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha="0.8"
+            android:background="@drawable/background_character_overlay"
+            app:layout_constraintBottom_toBottomOf="@id/imageCharacter"
+            app:layout_constraintEnd_toEndOf="@id/imageCharacter"
+            app:layout_constraintStart_toStartOf="@id/imageCharacter"
+            app:layout_constraintTop_toTopOf="@id/imageCharacter" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

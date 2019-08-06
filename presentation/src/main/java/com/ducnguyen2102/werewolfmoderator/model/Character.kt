@@ -1,6 +1,6 @@
 package com.ducnguyen2102.werewolfmoderator.model
 
-data class Character(val type: CharacterType) {
+data class Character(val type: Int) {
 
     enum class CharacterType(val type: Int) {
         IDIOT(1),
