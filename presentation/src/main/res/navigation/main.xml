@@ -17,5 +17,23 @@
         android:id="@+id/pickCharacterFragment"
         android:name="com.ducnguyen2102.werewolfmoderator.ui.pickcharacter.PickCharacterFragment"
         android:label="PickCharacterFragment"
-        tools:layout="@layout/fragment_pick_character" />
+        tools:layout="@layout/fragment_pick_character">
+        <action
+            android:id="@+id/action_pickCharacterFragment_to_confirmCharacterFragment"
+            app:destination="@id/confirmCharacterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/confirmCharacterFragment"
+        android:name="com.ducnguyen2102.werewolfmoderator.ui.confimcharacter.ConfirmCharacterFragment"
+        android:label="ConfirmCharacterFragment"
+        tools:layout="@layout/fragment_confirm_character">
+        <action
+            android:id="@+id/action_confirmCharacterFragment_to_gamePlayFragment"
+            app:destination="@id/gamePlayFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gamePlayFragment"
+        android:name="com.ducnguyen2102.werewolfmoderator.ui.gameplay.GamePlayFragment"
+        android:label="GamePlayFragment"
+        tools:layout="@layout/fragment_game_play" />
 </navigation>

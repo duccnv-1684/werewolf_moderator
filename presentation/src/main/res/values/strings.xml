@@ -26,4 +26,85 @@
     <string name="character_villager">Dân làng</string>
     <string name="title_back">Back</string>
     <string name="number_player_error">Số lượng người chơi phải trong khoảng từ 6 tới 20!</string>
+    <string name="title_confirm_character">Xác nhận nhân vật được chọn</string>
+    <string-array name="idiot">
+        <item>Thằng ngốc thức dậy!</item>
+        <item>Thằng ngốc đi ngủ!</item>
+    </string-array>
+    <string-array name="cupid">
+        <item>Cupid thức dậy!</item>
+        <item>Cupid chọn hai người để liên kết với nhau!</item>
+        <item>Cupid đi ngủ!</item>
+    </string-array>
+    <string-array name="two_sisters">
+        <item>Hai chị em thức dậy!</item>
+        <item>Hai chị em nhìn mặt để nhận nhau!</item>
+        <item>Hai chị em đi ngủ!</item>
+    </string-array>
+    <string-array name="three_brothers">
+        <item>Ba anh em thức dậy!</item>
+        <item>Ba anh em nhìn mặt để nhận nhau!</item>
+        <item>Ba anh em đi ngủ!</item>
+    </string-array>
+    <string-array name="wild_child">
+        <item>Con hoang thức dậy!</item>
+        <item>Con hoang chọn một người làm cha!</item>
+        <item>Con hoang đi ngủ!</item>
+    </string-array>
+    <string-array name="ancient">
+        <item>Già làng thức dậy!</item>
+        <item>Già làng đi ngủ!</item>
+    </string-array>
+    <string-array name="savior">
+        <item>Bảo vệ thức dậy!</item>
+        <item>Bảo vệ đêm nay bảo vệ ai?</item>
+        <item>Bảo vệ đi ngủ!</item>
+    </string-array>
+    <string-array name="wolf">
+        <item>Đàn sói thức dậy!</item>
+        <item>Đàn sói đêm nay muốn giết ai?</item>
+        <item>Đàn sói đi ngủ!</item>
+    </string-array>
+    <string-array name="vile_father_of_wolf">
+        <item>Sói nguyền thức dậy!</item>
+        <item>Sói nguyền có muốn nguyền nạn nhân không?</item>
+        <item>Sói nguyền đi ngủ!</item>
+    </string-array>
+    <string-array name="big_dad_wolf">
+        <item>Sói trùm thức dậy!</item>
+        <item>Sói trùm đi ngủ!</item>
+    </string-array>
+    <string-array name="witch">
+        <item>Phù thủy thức dậy!</item>
+        <item>Đêm nay người này chết, phù thủy có muốn cứu không?</item>
+        <item>Phù thủy có muốn giết ai không?</item>
+        <item>Phù thủy đi ngủ!</item>
+    </string-array>
+    <string-array name="seer">
+        <item>Tiên tri thức dậy!</item>
+        <item>Tiên tri đêm nay muốn soi ai?</item>
+        <item>Tiên tri đi ngủ!</item>
+    </string-array>
+    <string-array name="fox">
+        <item>Cáo thức dậy!</item>
+        <item>Cáo đêm nay muốn soi ai?</item>
+        <item>Cáo đi ngủ!</item>
+    </string-array>
+    <string-array name="knight">
+        <item>Hiệp sĩ thức dậy!</item>
+        <item>Hiệp sĩ đi ngủ!</item>
+    </string-array>
+    <string-array name="hunter">
+        <item>Thợ săn thức dậy!</item>
+        <item>Thợ săn đi ngủ!</item>
+    </string-array>
+    <string-array name="flutist">
+        <item>Người thổi sáo thức dậy!</item>
+        <item>Người thổi sáo đêm nay muốn thôi miên ai?</item>
+        <item>Người thổi sáo đi ngủ!</item>
+    </string-array>
+    <string-array name="villager">
+        <item>Cả làng thức dậy!</item>
+        <item>Cả làng đi ngủ!</item>
+    </string-array>
 </resources>

@@ -1,6 +1,7 @@
 package com.ducnguyen2102.werewolfmoderator.ui.pickcharacter
 
 import android.os.Bundle
+import androidx.navigation.fragment.findNavController
 import com.ducnguyen2102.werewolfmoderator.BR
 import com.ducnguyen2102.werewolfmoderator.R
 import com.ducnguyen2102.werewolfmoderator.base.BaseFragment
@@ -28,8 +29,7 @@ class PickCharacterFragment : BaseFragment<FragmentPickCharacterBinding, PickCha
 
     private var count = 0
     private var numberPlayer = 0
-    private var characters = Character.createCharacter()
-    private var listItem = ItemCharacterViewModel.createListFromCharacters(characters)
+    private lateinit var listItem: ArrayList<ItemCharacterViewModel>
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -58,9 +58,13 @@ class PickCharacterFragment : BaseFragment<FragmentPickCharacterBinding, PickCha
 
             }
             next.setOnClickListener {
-
+                sharedViewModel.listCharacter.value = ItemCharacterViewModel.createListFromItemViewModel(listItem)
+                findNavController().navigate(R.id.action_pickCharacterFragment_to_confirmCharacterFragment)
             }
         }
+        listItem = sharedViewModel.listCharacter.value?.run {
+            ItemCharacterViewModel.createListFromCharacters(this)
+        } ?: ItemCharacterViewModel.createListFromCharacters(Character.createCharacter())
         pickCharacterAdapter.submitList(listItem)
         subscribeUI()
     }

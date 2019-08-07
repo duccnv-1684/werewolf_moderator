@@ -1,6 +1,8 @@
 package com.ducnguyen2102.werewolfmoderator.di.builder
 
 import com.ducnguyen2102.werewolfmoderator.ui.MainSharedViewModel
+import com.ducnguyen2102.werewolfmoderator.ui.confimcharacter.ConfirmCharacterViewModel
+import com.ducnguyen2102.werewolfmoderator.ui.gameplay.GamePlayViewModel
 import com.ducnguyen2102.werewolfmoderator.ui.pickcharacter.PickCharacterViewModel
 import com.ducnguyen2102.werewolfmoderator.ui.setnumberplayer.SetNumberPlayerViewModel
 import org.koin.androidx.viewmodel.ext.koin.viewModel
@@ -10,6 +12,10 @@ val viewModels = module {
     viewModel { SetNumberPlayerViewModel(get()) }
 
     viewModel { PickCharacterViewModel(get()) }
+
+    viewModel { ConfirmCharacterViewModel(get()) }
+
+    viewModel { GamePlayViewModel(get()) }
 
     viewModel { MainSharedViewModel() }
 }

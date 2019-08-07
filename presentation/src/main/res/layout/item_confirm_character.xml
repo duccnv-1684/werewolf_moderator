@@ -6,9 +6,8 @@
 
         <variable
             name="character"
-            type="com.ducnguyen2102.werewolfmoderator.ui.pickcharacter.ItemCharacterViewModel" />
+            type="com.ducnguyen2102.werewolfmoderator.ui.confimcharacter.ItemConfirmCharacterViewModel" />
 
-        <import type="android.view.View" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,35 +33,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:textColor="@{character.isSelected?@android:color/white:@android:color/darker_gray}"
+            android:textColor="@android:color/white"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/imageCharacter"
             app:layout_constraintStart_toStartOf="@+id/imageCharacter"
             app:layout_constraintTop_toBottomOf="@+id/imageCharacter" />
 
-        <View
-            android:id="@+id/viewOverlay"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:alpha="0.7"
-            android:background="@drawable/background_character_overlay"
-            android:visibility="@{character.isSelected?View.GONE:View.VISIBLE}"
-            app:layout_constraintBottom_toBottomOf="@id/imageCharacter"
-            app:layout_constraintEnd_toEndOf="@id/imageCharacter"
-            app:layout_constraintStart_toStartOf="@id/imageCharacter"
-            app:layout_constraintTop_toTopOf="@id/imageCharacter" />
-
-        <ImageView
+        <TextView
             android:id="@+id/textCharacterNumber"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_margin="4dp"
+            android:gravity="center"
+            android:text="@{character.count.toString()}"
             android:background="@drawable/background_character_number"
-            android:scaleType="center"
-            android:src="@drawable/ic_check"
             android:textColor="@android:color/white"
             android:textStyle="bold"
-            android:visibility="@{character.isSelected?View.VISIBLE:View.GONE}"
             app:layout_constraintBottom_toBottomOf="@+id/imageCharacter"
             app:layout_constraintEnd_toEndOf="@+id/imageCharacter" />
 

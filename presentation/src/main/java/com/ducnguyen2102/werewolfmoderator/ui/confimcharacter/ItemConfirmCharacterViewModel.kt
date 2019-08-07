@@ -1,9 +1,9 @@
-package com.ducnguyen2102.werewolfmoderator.ui.pickcharacter
+package com.ducnguyen2102.werewolfmoderator.ui.confimcharacter
 
 import androidx.databinding.ObservableField
 import com.ducnguyen2102.werewolfmoderator.model.Character
 
-class ItemCharacterViewModel(val character: Character) {
+class ItemConfirmCharacterViewModel(val character: Character) {
 
     val type = ObservableField<Character.CharacterType>()
     val id = ObservableField<String>()
@@ -11,6 +11,7 @@ class ItemCharacterViewModel(val character: Character) {
     val imageId = ObservableField<Int>()
     val isCalledEveryNight = ObservableField<Boolean>()
     var isSelected = ObservableField<Boolean>()
+    var count = ObservableField<Int>()
 
     init {
         type.set(character.type)
@@ -19,13 +20,18 @@ class ItemCharacterViewModel(val character: Character) {
         imageId.set(character.imageId)
         isCalledEveryNight.set(character.isCalledEveryNight)
         isSelected.set(character.isSelected)
+        when (type.get()) {
+            Character.CharacterType.TWO_SISTERS -> count.set(2)
+            Character.CharacterType.THREE_BROTHERS -> count.set(3)
+            else -> count.set(1)
+        }
     }
 
 
     override fun equals(other: Any?): Boolean {
         return when {
             other === this -> true
-            other !is ItemCharacterViewModel -> false
+            other !is ItemConfirmCharacterViewModel -> false
             else -> other.id.get()!! == this.id.get()!!
         }
     }
@@ -42,26 +48,17 @@ class ItemCharacterViewModel(val character: Character) {
     }
 
     companion object {
-        fun createListFromCharacters(characters: List<Character>): ArrayList<ItemCharacterViewModel> {
-            val listItem = ArrayList<ItemCharacterViewModel>()
+        fun createListFromCharacters(characters: List<Character>): ArrayList<ItemConfirmCharacterViewModel> {
+            val listItem = ArrayList<ItemConfirmCharacterViewModel>()
             characters.forEach {
-                listItem.add(ItemCharacterViewModel(it))
+                if (it.isSelected)
+                    when {
+                        listItem.isEmpty() -> listItem.add(ItemConfirmCharacterViewModel(it))
+                        listItem.last().type.get() != it.type -> listItem.add(ItemConfirmCharacterViewModel(it))
+                        else -> listItem.last().count.set(listItem.last().count.get()!! + 1)
+                    }
             }
             return listItem
-        }
-
-        fun createListFromItemViewModel(listItem:List<ItemCharacterViewModel>): ArrayList<Character> {
-            val list = ArrayList<Character>()
-            listItem.forEach {
-                val character = Character(it.type.get()!!)
-                character.id = it.id.get()!!
-                character.imageId = it.imageId.get()!!
-                character.nameId = it.nameId.get()!!
-                character.isCalledEveryNight = it.isCalledEveryNight.get()!!
-                character.isSelected = it.isSelected.get()!!
-                list.add(character)
-            }
-            return list
         }
     }
 }

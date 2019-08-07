@@ -5,10 +5,10 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 data class Character(val type: CharacterType) {
-    val id: String = UUID.randomUUID().toString()
-    val nameId: Int
-    val imageId: Int
-    val isCalledEveryNight: Boolean
+    var id: String = UUID.randomUUID().toString()
+    var nameId: Int
+    var imageId: Int
+    var isCalledEveryNight: Boolean
     var isSelected = false
 
     init {
@@ -99,6 +99,7 @@ data class Character(val type: CharacterType) {
                 isCalledEveryNight = false
             }
         }
+
     }
 
     companion object {
