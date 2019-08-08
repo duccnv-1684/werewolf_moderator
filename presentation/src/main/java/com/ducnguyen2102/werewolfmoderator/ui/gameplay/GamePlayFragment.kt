@@ -2,7 +2,6 @@ package com.ducnguyen2102.werewolfmoderator.ui.gameplay
 
 import android.media.MediaPlayer
 import android.os.Bundle
-import android.widget.Toast
 import com.ducnguyen2102.werewolfmoderator.BR
 import com.ducnguyen2102.werewolfmoderator.R
 import com.ducnguyen2102.werewolfmoderator.base.BaseFragment
@@ -14,7 +13,10 @@ import com.ducnguyen2102.werewolfmoderator.util.autoCleared
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class GamePlayFragment : BaseFragment<FragmentGamePlayBinding, GamePlayViewModel>() {
+class GamePlayFragment : MediaPlayer.OnPreparedListener, BaseFragment<FragmentGamePlayBinding, GamePlayViewModel>() {
+    override fun onPrepared(p0: MediaPlayer?) {
+        mediaPlayer.start()
+    }
 
     override val bindingVariable = BR.viewModel
 
@@ -51,7 +53,7 @@ class GamePlayFragment : BaseFragment<FragmentGamePlayBinding, GamePlayViewModel
             R.array.flutist,
             R.array.villager)
 
-    private var currentNight = 0
+    private var currentNight = 1
 
     private var currentCharacter = 0
 
@@ -67,67 +69,199 @@ class GamePlayFragment : BaseFragment<FragmentGamePlayBinding, GamePlayViewModel
             gamePlayAdapter = GamePlayAdapter(bindingComponent) {
             }
             listSentences.adapter = gamePlayAdapter
-            listSentence = context!!.resources.getStringArray(listCharacterSentenceId[currentCharacter]).toList()
+            listSentence = context!!.resources.getStringArray(listCharacterSentenceId[listCharacter[currentCharacter].type.type - 1]).toList()
+            viewModel!!.currentCharacterImage.value = listCharacter[currentCharacter].imageId
+            viewModel!!.currentCharacterName.value = listCharacter[currentCharacter].nameId
             val listItem = ItemSentenceViewModel.createListItem(listSentence)
             gamePlayAdapter.submitList(listItem)
 
             skipPrevious.setOnClickListener {
-                if (currentCharacter != 0) {
-                    currentSence = 0
-                    currentCharacter -= 1
-                    listSentence = context!!.resources.getStringArray(listCharacterSentenceId[currentCharacter]).toList()
-                    currentSence = listSentence.lastIndex
-                    val newList = ItemSentenceViewModel.createListItem(listSentence)
-                    gamePlayAdapter.submitList(newList)
-                }
-                Toast.makeText(context!!, "$currentSence $currentCharacter", Toast.LENGTH_SHORT).show()
+                skipPrevious()
             }
             rewind.setOnClickListener {
-                if (currentSence == 0) {
-                    if (currentCharacter != 0) {
-                        currentCharacter -= 1
-                        listSentence = context!!.resources.getStringArray(listCharacterSentenceId[currentCharacter]).toList()
-                        currentSence = listSentence.lastIndex
-                        val newList = ItemSentenceViewModel.createListItem(listSentence)
-                        gamePlayAdapter.submitList(newList)
-                    }
-                } else currentSence -= 1
-                Toast.makeText(context!!, "$currentSence $currentCharacter", Toast.LENGTH_SHORT).show()
+                rewind()
             }
             replay.setOnClickListener {
-                Toast.makeText(context!!, "$currentSence $currentCharacter", Toast.LENGTH_SHORT).show()
+                startAudio()
             }
             forward.setOnClickListener {
-                if (currentSence == listSentence.lastIndex) {
-                    if (currentCharacter != listCharacter.lastIndex) {
-                        currentCharacter += 1
-                        listSentence = context!!.resources.getStringArray(listCharacterSentenceId[currentCharacter]).toList()
-                        currentSence = 0
-                        val newList = ItemSentenceViewModel.createListItem(listSentence)
-                        gamePlayAdapter.submitList(newList)
-                    }
-                } else currentSence += 1
-                Toast.makeText(context!!, "$currentSence $currentCharacter", Toast.LENGTH_SHORT).show()
+                forward()
             }
             skipNext.setOnClickListener {
-                if (currentCharacter != listCharacter.lastIndex) {
-                    currentSence = 0
-                    currentCharacter += 1
-                    listSentence = context!!.resources.getStringArray(listCharacterSentenceId[currentCharacter]).toList()
+                skipNext()
+            }
+        }
+        startAudio()
+    }
+
+    private fun startAudio() {
+        val characterType = listCharacter[currentCharacter].type.type
+        val position = currentSence + 1
+        val afd = context!!.assets.openFd("voice/voice${characterType}_$position.mp3")
+        mediaPlayer.reset()
+        mediaPlayer.setDataSource(afd.fileDescriptor, afd.startOffset, afd.length)
+        mediaPlayer.prepare()
+        mediaPlayer.start()
+    }
+
+    private fun skipPrevious() {
+        if (currentCharacter != 0) {
+            currentSence = 0
+            currentCharacter -= 1
+            while (!listCharacter[currentCharacter].isCalledEveryNight && currentNight != 1) {
+                if (currentCharacter != 0) currentCharacter -= 1
+                else {
+                    currentCharacter = listCharacter.lastIndex
+                    currentNight -= 1
+                }
+            }
+            listSentence = context!!.resources.getStringArray(listCharacterSentenceId[listCharacter[currentCharacter].type.type - 1]).toList()
+            viewModel.currentCharacterImage.value = listCharacter[currentCharacter].imageId
+            viewModel.currentCharacterName.value = listCharacter[currentCharacter].nameId
+            viewModel.currentNight.value = currentNight
+            val newList = ItemSentenceViewModel.createListItem(listSentence)
+            gamePlayAdapter.submitList(newList)
+        } else {
+            if (currentNight != 1) {
+                currentNight -= 1
+                currentSence = 0
+                currentCharacter = listCharacter.lastIndex
+                while (!listCharacter[currentCharacter].isCalledEveryNight && currentNight != 1) {
+                    if (currentCharacter != 0) currentCharacter -= 1
+                    else {
+                        currentCharacter = listCharacter.lastIndex
+                        currentNight -= 1
+                    }
+                }
+                listSentence = context!!.resources.getStringArray(listCharacterSentenceId[listCharacter[currentCharacter].type.type - 1]).toList()
+                viewModel.currentNight.value = currentNight
+                viewModel.currentCharacterImage.value = listCharacter[currentCharacter].imageId
+                viewModel.currentCharacterName.value = listCharacter[currentCharacter].nameId
+                val newList = ItemSentenceViewModel.createListItem(listSentence)
+                gamePlayAdapter.submitList(newList)
+            }
+        }
+        startAudio()
+    }
+
+    private fun rewind() {
+        if (currentSence == 0) {
+            if (currentCharacter != 0) {
+                currentCharacter -= 1
+                while (!listCharacter[currentCharacter].isCalledEveryNight && currentNight != 1) {
+                    if (currentCharacter != 0) currentCharacter -= 1
+                    else {
+                        currentCharacter = listCharacter.lastIndex
+                        currentNight -= 1
+                    }
+                }
+                listSentence = context!!.resources.getStringArray(listCharacterSentenceId[listCharacter[currentCharacter].type.type - 1]).toList()
+                viewModel.currentCharacterImage.value = listCharacter[currentCharacter].imageId
+                viewModel.currentCharacterName.value = listCharacter[currentCharacter].nameId
+                viewModel.currentNight.value = currentNight
+                currentSence = listSentence.lastIndex
+                val newList = ItemSentenceViewModel.createListItem(listSentence)
+                gamePlayAdapter.submitList(newList)
+            } else {
+                if (currentNight != 1) {
+                    currentNight -= 1
+                    currentCharacter = listCharacter.lastIndex
+                    while (!listCharacter[currentCharacter].isCalledEveryNight && currentNight != 1) {
+                        if (currentCharacter != 0) currentCharacter -= 1
+                        else {
+                            currentCharacter = listCharacter.lastIndex
+                            currentNight -= 1
+                        }
+                    }
+                    listSentence = context!!.resources.getStringArray(listCharacterSentenceId[listCharacter[currentCharacter].type.type - 1]).toList()
+                    viewModel.currentCharacterImage.value = listCharacter[currentCharacter].imageId
+                    viewModel.currentCharacterName.value = listCharacter[currentCharacter].nameId
+                    viewModel.currentNight.value = currentNight
                     currentSence = listSentence.lastIndex
                     val newList = ItemSentenceViewModel.createListItem(listSentence)
                     gamePlayAdapter.submitList(newList)
                 }
-                Toast.makeText(context!!, "$currentSence $currentCharacter", Toast.LENGTH_SHORT).show()
             }
+        } else currentSence -= 1
+        startAudio()
+    }
+
+    private fun forward() {
+        if (currentSence == listSentence.lastIndex) {
+            if (currentCharacter != listCharacter.lastIndex) {
+                currentCharacter += 1
+                while (!listCharacter[currentCharacter].isCalledEveryNight && currentNight != 1) {
+                    if (currentCharacter != listCharacter.lastIndex) currentCharacter += 1
+                    else {
+                        currentCharacter = 0
+                        currentNight += 1
+                    }
+                }
+                listSentence = context!!.resources.getStringArray(listCharacterSentenceId[listCharacter[currentCharacter].type.type - 1]).toList()
+                viewModel.currentCharacterImage.value = listCharacter[currentCharacter].imageId
+                viewModel.currentCharacterName.value = listCharacter[currentCharacter].nameId
+                viewModel.currentNight.value = currentNight
+                currentSence = 0
+                val newList = ItemSentenceViewModel.createListItem(listSentence)
+                gamePlayAdapter.submitList(newList)
+            } else {
+                currentNight += 1
+                currentCharacter = 0
+                while (!listCharacter[currentCharacter].isCalledEveryNight && currentNight != 1) {
+                    if (currentCharacter != listCharacter.lastIndex) currentCharacter += 1
+                    else {
+                        currentCharacter = 0
+                        currentNight += 1
+                    }
+                }
+                currentSence = 0
+                listSentence = context!!.resources.getStringArray(listCharacterSentenceId[listCharacter[currentCharacter].type.type - 1]).toList()
+                viewModel.currentCharacterImage.value = listCharacter[currentCharacter].imageId
+                viewModel.currentCharacterName.value = listCharacter[currentCharacter].nameId
+                viewModel.currentNight.value = currentNight
+                val newList = ItemSentenceViewModel.createListItem(listSentence)
+                gamePlayAdapter.submitList(newList)
+
+            }
+        } else currentSence += 1
+        startAudio()
+    }
+
+    private fun skipNext() {
+        if (currentCharacter != listCharacter.lastIndex) {
+            currentSence = 0
+            currentCharacter += 1
+            while (!listCharacter[currentCharacter].isCalledEveryNight && currentNight != 1) {
+                if (currentCharacter != listCharacter.lastIndex) currentCharacter += 1
+                else {
+                    currentCharacter = 0
+                    currentNight += 1
+                }
+            }
+            listSentence = context!!.resources.getStringArray(listCharacterSentenceId[listCharacter[currentCharacter].type.type - 1]).toList()
+            viewModel.currentCharacterImage.value = listCharacter[currentCharacter].imageId
+            viewModel.currentCharacterName.value = listCharacter[currentCharacter].nameId
+            viewModel.currentNight.value = currentNight
+            val newList = ItemSentenceViewModel.createListItem(listSentence)
+            gamePlayAdapter.submitList(newList)
+        } else {
+            currentNight += 1
+            currentCharacter = 0
+            while (!listCharacter[currentCharacter].isCalledEveryNight && currentNight != 1) {
+                if (currentCharacter != listCharacter.lastIndex) currentCharacter += 1
+                else {
+                    currentCharacter = 0
+                    currentNight += 1
+                }
+            }
+            currentSence = 0
+            listSentence = context!!.resources.getStringArray(listCharacterSentenceId[listCharacter[currentCharacter].type.type - 1]).toList()
+            viewModel.currentNight.value = currentNight
+            viewModel.currentCharacterImage.value = listCharacter[currentCharacter].imageId
+            viewModel.currentCharacterName.value = listCharacter[currentCharacter].nameId
+            val newList = ItemSentenceViewModel.createListItem(listSentence)
+            gamePlayAdapter.submitList(newList)
         }
-        subscribeUI()
-    }
-
-    private fun subscribeUI() {
-    }
-
-    fun getAudioFile(characterType:Int,position:Int){
-
+        startAudio()
     }
 }

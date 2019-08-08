@@ -27,6 +27,8 @@
     <string name="title_back">Back</string>
     <string name="number_player_error">Số lượng người chơi phải trong khoảng từ 6 tới 20!</string>
     <string name="title_confirm_character">Xác nhận nhân vật được chọn</string>
+    <string name="waiting">Waiting</string>
+    <string name="night">Đêm thứ %d</string>
     <string-array name="idiot">
         <item>Thằng ngốc thức dậy!</item>
         <item>Thằng ngốc đi ngủ!</item>
@@ -35,6 +37,9 @@
         <item>Cupid thức dậy!</item>
         <item>Cupid chọn hai người để liên kết với nhau!</item>
         <item>Cupid đi ngủ!</item>
+        <item>Hai người được Cupid chọn thức dậy!</item>
+        <item>Hai người được Cupid chọn cho nhau nhìn bài!</item>
+        <item>Hai người được Cupid chọn đi ngủ!</item>
     </string-array>
     <string-array name="two_sisters">
         <item>Hai chị em thức dậy!</item>

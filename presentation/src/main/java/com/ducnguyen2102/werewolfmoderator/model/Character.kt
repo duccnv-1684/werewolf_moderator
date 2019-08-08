@@ -96,7 +96,7 @@ data class Character(val type: CharacterType) {
             CharacterType.VILLAGER -> {
                 nameId = R.string.character_villager
                 imageId = R.drawable.character17
-                isCalledEveryNight = false
+                isCalledEveryNight = true
             }
         }
 
