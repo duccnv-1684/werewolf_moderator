@@ -2,6 +2,7 @@ package com.ducnguyen2102.werewolfmoderator.ui.confimcharacter
 
 import androidx.databinding.ObservableField
 import com.ducnguyen2102.werewolfmoderator.model.Character
+import com.ducnguyen2102.werewolfmoderator.ui.pickcharacter.ItemCharacterViewModel
 
 class ItemConfirmCharacterViewModel(val character: Character) {
 
@@ -48,7 +49,7 @@ class ItemConfirmCharacterViewModel(val character: Character) {
     }
 
     companion object {
-        fun createListFromCharacters(characters: List<Character>): ArrayList<ItemConfirmCharacterViewModel> {
+        fun createListFromCharacters(characters: List<Character>): List<ItemConfirmCharacterViewModel> {
             val listItem = ArrayList<ItemConfirmCharacterViewModel>()
             characters.forEach {
                 if (it.isSelected)
@@ -59,6 +60,19 @@ class ItemConfirmCharacterViewModel(val character: Character) {
                     }
             }
             return listItem
+        }
+        fun createListFromItemViewModel(listItem:List<ItemConfirmCharacterViewModel>): List<Character> {
+            val list = ArrayList<Character>()
+            listItem.forEach {
+                val character = Character(it.type.get()!!)
+                character.id = it.id.get()!!
+                character.imageId = it.imageId.get()!!
+                character.nameId = it.nameId.get()!!
+                character.isCalledEveryNight = it.isCalledEveryNight.get()!!
+                character.isSelected = it.isSelected.get()!!
+                list.add(character)
+            }
+            return list
         }
     }
 }

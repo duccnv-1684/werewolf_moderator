@@ -40,6 +40,7 @@ class SetNumberPlayerFragment : BaseFragment<FragmentSetNumberPlayerBinding, Set
             numberPlayers?.let {
                 if (it in 5..30) {
                     sharedViewModel.numberPlayers.value = it
+                    sharedViewModel.listPickingCharacter.value = null
                     hideKeyBoard()
                     findNavController().navigate(R.id.action_mainFragment_to_pickCharacterFragment)
                 } else {

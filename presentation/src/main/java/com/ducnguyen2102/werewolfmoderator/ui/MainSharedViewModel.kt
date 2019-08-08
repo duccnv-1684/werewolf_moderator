@@ -6,5 +6,6 @@ import com.ducnguyen2102.werewolfmoderator.model.Character
 
 class MainSharedViewModel : BaseViewModel() {
     val numberPlayers = MutableLiveData<Int>().apply { postValue(0) }
-    val listCharacter = MutableLiveData<ArrayList<Character>>()
+    val listPickingCharacter = MutableLiveData<List<Character>>()
+    val listCharacter = MutableLiveData<List<Character>>()
 }

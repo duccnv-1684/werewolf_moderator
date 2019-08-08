@@ -29,7 +29,7 @@ class PickCharacterFragment : BaseFragment<FragmentPickCharacterBinding, PickCha
 
     private var count = 0
     private var numberPlayer = 0
-    private lateinit var listItem: ArrayList<ItemCharacterViewModel>
+    private lateinit var listItem: MutableList<ItemCharacterViewModel>
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -55,16 +55,16 @@ class PickCharacterFragment : BaseFragment<FragmentPickCharacterBinding, PickCha
         }
         viewDataBinding.apply {
             back.setOnClickListener {
-
+                findNavController().navigateUp()
             }
             next.setOnClickListener {
-                sharedViewModel.listCharacter.value = ItemCharacterViewModel.createListFromItemViewModel(listItem)
+                sharedViewModel.listPickingCharacter.value = ItemCharacterViewModel.createListFromItemViewModel(listItem)
                 findNavController().navigate(R.id.action_pickCharacterFragment_to_confirmCharacterFragment)
             }
         }
-        listItem = sharedViewModel.listCharacter.value?.run {
-            ItemCharacterViewModel.createListFromCharacters(this)
-        } ?: ItemCharacterViewModel.createListFromCharacters(Character.createCharacter())
+        listItem = sharedViewModel.listPickingCharacter.value?.run {
+            ItemCharacterViewModel.createListFromCharacters(this).toMutableList()
+        } ?: ItemCharacterViewModel.createListFromCharacters(Character.createCharacter()).toMutableList()
         pickCharacterAdapter.submitList(listItem)
         subscribeUI()
     }

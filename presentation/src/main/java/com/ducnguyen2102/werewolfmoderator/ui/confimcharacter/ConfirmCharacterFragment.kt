@@ -31,11 +31,15 @@ class ConfirmCharacterFragment : BaseFragment<FragmentConfirmCharacterBinding, C
             confirmCharacterAdapter = ConfirmCharacterAdapter(bindingComponent) {
 
             }
-            val listItem = ItemConfirmCharacterViewModel.createListFromCharacters(sharedViewModel.listCharacter.value!!)
+            val listItem = ItemConfirmCharacterViewModel.createListFromCharacters(sharedViewModel.listPickingCharacter.value!!)
             listCharacters.adapter = confirmCharacterAdapter
             confirmCharacterAdapter.submitList(listItem)
             next.setOnClickListener {
+                sharedViewModel.listCharacter.value = ItemConfirmCharacterViewModel.createListFromItemViewModel(listItem)
                 findNavController().navigate(R.id.action_confirmCharacterFragment_to_gamePlayFragment)
+            }
+            back.setOnClickListener {
+                findNavController().navigateUp()
             }
         }
     }

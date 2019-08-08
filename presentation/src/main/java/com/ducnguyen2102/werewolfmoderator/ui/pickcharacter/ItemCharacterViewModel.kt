@@ -42,7 +42,7 @@ class ItemCharacterViewModel(val character: Character) {
     }
 
     companion object {
-        fun createListFromCharacters(characters: List<Character>): ArrayList<ItemCharacterViewModel> {
+        fun createListFromCharacters(characters: List<Character>): List<ItemCharacterViewModel> {
             val listItem = ArrayList<ItemCharacterViewModel>()
             characters.forEach {
                 listItem.add(ItemCharacterViewModel(it))
@@ -50,7 +50,7 @@ class ItemCharacterViewModel(val character: Character) {
             return listItem
         }
 
-        fun createListFromItemViewModel(listItem:List<ItemCharacterViewModel>): ArrayList<Character> {
+        fun createListFromItemViewModel(listItem:List<ItemCharacterViewModel>): List<Character> {
             val list = ArrayList<Character>()
             listItem.forEach {
                 val character = Character(it.type.get()!!)
